@@ -1,95 +1,98 @@
-# Project Structure for Frontend
+# Project Directory Structure and Explanation
 
-This document explains the structure of the frontend directory, including its purpose and organization.
+## Frontend Structure
 
-## Directory Overview
-
-### `frontend/`
-The root directory for the frontend codebase. It contains the source code, configuration files, and static assets.
-
----
-
-### `public/`
-Contains static files that remain unchanged during the build process.
-- **`favicon.ico`**: The website's favicon.
-- **`logo.png`**: A logo image used in the app.
-- **`index.html`**: The main HTML file that serves the React app.
+### **public/**
+This folder contains static assets that don’t change during the app’s lifecycle.
+- **favicon.ico**: The small icon displayed in the browser tab.
+- **logo.png**: The project’s logo. You can replace this if needed.
+- **index.html**: The main HTML file that serves the app (framework-dependent).
 
 ---
 
-### `src/`
-The source directory where the app's code is organized.
+### **src/**
+This folder is the heart of our application where all the development happens.
 
-#### **`pages/`**
-Houses logic and components specific to individual pages in the app.
-- **`Home/`**: Components for the Home page.
-  - `index.jsx`: The main component for the Home page.
-  - `Home.module.css`: Styles for the Home page.
-  - `TaskSummary.jsx`: A task summary component.
-- **`Project/`**: Components for the Project details page.
-  - `index.jsx`: The main component for the Project page.
-  - `Project.module.css`: Styles for the Project page.
-  - `TaskList.jsx`: A component for listing tasks.
-  - `useProjectData.js`: A custom hook for fetching project data.
-- **`Login/`**: Components for the Login page.
-  - `index.jsx`: The main component for the Login page.
-  - `Login.module.css`: Styles for the Login page.
-  - `LoginForm.jsx`: A reusable form component for logging in.
+#### **app/**
+This folder is specifically for Next.js compatibility.
+- **fonts/**: Stores custom font files used across the app.
+- **globals.css**: Contains global CSS styles applied throughout the app.
+- **layout.tsx**: The base layout component that defines the structure of the app (headers, footers, etc.).
+- **page.module.css**: CSS styles specifically for the root page.
+- **page.tsx**: The root component of the app (acts like the "homepage").
 
-#### **`components/`**
-Reusable components shared across the app.
-- **`ui/`**: UI-specific reusable components.
-  - `Button.jsx`, `Modal.jsx`, `ProgressBar.jsx`: Generic UI components.
-- **`form/`**: Form-specific reusable components.
-  - `Input.jsx`, `Checkbox.jsx`: Form input components.
-- **`layout/`**: Layout components used for structuring pages.
-  - `Header.jsx`, `Footer.jsx`, `Sidebar.jsx`: Common layout components.
+#### **pages/**
+This folder organizes the app into different functional pages.
+- **Home/**: 
+  - **index.jsx**: The main component for the homepage.
+  - **Home.module.css**: Styles specific to the homepage.
+  - **TaskSummary.jsx**: A reusable subcomponent that summarizes tasks.
+- **Project/**:
+  - **index.jsx**: The main component displaying project details.
+  - **Project.module.css**: Styles specific to the project page.
+  - **TaskList.jsx**: A component to list tasks related to a specific project.
+  - **useProjectData.js**: A custom hook to fetch data related to projects.
+- **Login/**:
+  - **index.jsx**: The main component for the login page.
+  - **Login.module.css**: Styles specific to the login page.
+  - **LoginForm.jsx**: A reusable form component for user login.
 
-#### **`hooks/`**
-Custom React hooks for global functionality.
-- `useAuth.js`: Handles authentication logic.
-- `useFetch.js`: A wrapper for API requests.
-- `useProgress.js`: Calculates progress bar values.
+#### **components/**
+This folder holds reusable UI and layout components used across the app.
+- **ui/**:
+  - **Button.jsx**: A customizable button component.
+  - **Modal.jsx**: A reusable modal (popup) component.
+  - **ProgressBar.jsx**: A component for displaying progress visually.
+- **form/**:
+  - **Input.jsx**: A styled input field component.
+  - **Checkbox.jsx**: A styled checkbox component.
+- **layout/**:
+  - **Header.jsx**: The app's header component.
+  - **Footer.jsx**: The app's footer component.
+  - **Sidebar.jsx**: A sidebar navigation component.
 
-#### **`context/`**
-React Context for managing global state.
-- `AuthContext.js`: Context for authentication state.
-- `ProjectContext.js`: Context for project-related data.
-- `TaskContext.js`: Context for task-related data.
+#### **hooks/**
+This folder contains custom hooks for shared logic.
+- **useAuth.js**: Handles user authentication and permissions.
+- **useFetch.js**: A wrapper for API calls, making them easier to use.
+- **useProgress.js**: Calculates progress for tasks or projects.
 
-#### **`assets/`**
-Non-code assets like images, fonts, and styles.
-- **`images/`**: Stores logo and icon images.
-- **`fonts/`**: Custom fonts for the app.
-- **`styles/`**: Global styling files.
-  - `variables.css`: CSS variables for theming.
-  - `globals.css`: General global styles.
-  - `reset.css`: CSS reset for consistent styling across browsers.
+#### **context/**
+Stores React Contexts for managing global state.
+- **AuthContext.js**: Manages user authentication state.
+- **ProjectContext.js**: Shares project-related data across components.
+- **TaskContext.js**: Shares task-related data across components.
 
-#### **`utils/`**
-Utility functions for common tasks.
-- `helpers.js`: General helper functions.
-- `formatters.js`: Functions for formatting dates and numbers.
-- `validators.js`: Logic for validating input fields.
+#### **assets/**
+Contains static assets such as images, fonts, and global styles.
+- **images/**: Stores all image files (e.g., logos, icons).
+- **fonts/**: Contains custom font files used in the app.
+- **styles/**:
+  - **variables.css**: Centralized CSS variables for consistent theming.
+  - **globals.css**: Additional global CSS styles.
+  - **reset.css**: A CSS reset to ensure consistent styling across browsers.
 
-#### **`data/`**
-Static data and configuration files.
-- `themes.json`: Theme settings for the app.
-- `constants.js`: Global constants like API URLs.
+#### **utils/**
+Utility functions used across the app to simplify common tasks.
+- **helpers.js**: General helper functions (e.g., sorting, filtering).
+- **formatters.js**: Functions for formatting dates, numbers, etc.
+- **validators.js**: Functions for input validation.
 
-#### Other Files in `src/`
-- **`index.jsx`**: The entry point for the React app.
-- **`App.jsx`**: The main app component.
-- **`reportWebVitals.js`**: Used for performance monitoring (optional).
+#### **data/**
+Contains static or constant data used throughout the app.
+- **themes.json**: Configuration for app themes (e.g., dark/light mode).
+- **constants.js**: Stores global constants such as API URLs or key values.
+
+#### Other Important Files:
+- **index.jsx**: The app’s entry point. It’s where the app starts running.
+- **App.jsx**: The main component that wraps all other components.
+- **reportWebVitals.js**: Used for monitoring app performance (optional).
 
 ---
 
-### Root Files
-- **`.gitignore`**: Specifies files and directories to exclude from Git tracking.
-- **`package.json`**: Defines dependencies and scripts for the project.
-- **`package-lock.json`**: Lock file for npm dependencies.
-- **`README.md`**: Documentation for the project.
-
----
-
-This structure promotes modularity, reusability, and maintainability, making it easier to scale and manage the application.
+### Root-Level Files
+- **.eslintrc.json**: Configuration for ESLint, which ensures our code follows best practices.
+- **tsconfig.json**: Configuration file for TypeScript (if used).
+- **package.json**: Lists all project dependencies and scripts.
+- **package-lock.json**: Ensures consistent dependency versions.
+- **README.md**: Project documentation that helps new developers get started.
