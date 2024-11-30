@@ -1,10 +1,6 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import LoginForm from '../pages/Login/LoginForm';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      yala bena  
-    </div>
-  );
+  return <LoginForm />;
 }
