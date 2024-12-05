@@ -1,0 +1,40 @@
+
+.homepage-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 50px 20px;
+  }
+  
+  .slogan {
+    font-size: 36px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+  }
+  
+  .time {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 40px;
+  }
+  
+  .features {
+    margin-top: 40px;
+  }
+  
+  .features h3 {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .features ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .features li {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+  }
+  
