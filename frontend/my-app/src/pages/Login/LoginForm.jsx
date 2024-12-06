@@ -1,62 +1,53 @@
-"use client";
+'use client';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './loginpage.css';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation"; 
-import "./LoginPage.css";
-
-const LoginForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter(); 
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(`Username: ${username}, Password: ${password}`);
-    alert("Login successful!");
-  };
-
-  const handleSignUp = () => {
-    router.push("/SignUp"); 
+    // Handle login logic here (e.g., validate email/password)
   };
 
   return (
     <div className="login-container">
-      <div className="login-box">
+      <div className="form-container">
         <h2 className="login-title">Login</h2>
-        <form onSubmit={handleLogin} className="login-form">
+        <form onSubmit={handleLogin}>
           <div className="input-group">
-            <input
-              type="text"
-              id="username"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+            <label>Email</label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              placeholder="Enter your email" 
             />
           </div>
           <div className="input-group">
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+            <label>Password</label>
+            <input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+              placeholder="Enter your password" 
             />
           </div>
-          <button type="submit" className="login-button">Login</button>
-          <p className="new-user-text">New User?</p>
-          <button
-            type="button"
-            className="signup-button"
-            onClick={handleSignUp}
-          >
-            Sign Up
-          </button>
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+          <button type="submit" className="login-btn">Login</button>
         </form>
+        <div className="signup-link">
+          <p>Don't have an account? <Link to="/signup">Create an account</Link></p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default LoginPage;
