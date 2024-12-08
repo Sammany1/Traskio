@@ -138,3 +138,11 @@
 
 
 
+.titleInput {
+  width: 94%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 18px;
+  margin-bottom: 16px;
+}

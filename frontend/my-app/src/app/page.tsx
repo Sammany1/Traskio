@@ -5,6 +5,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginForm from "../pages/Login/LoginForm";
 import SignUpForm from "../pages/SignUp/SignUpForm";
 import ProjectCard from "../pages/Project/project";
+import ToDoPage from "../pages/ToDos/ToDosPage";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
     //     <Route path="/signup" element={<SignUpForm />} />
     //   </Routes>
     // </Router>
-    <ProjectCard projectId={20}/>
+    <ToDoPage/>
   );
 };
 
