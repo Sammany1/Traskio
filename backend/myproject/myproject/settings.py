@@ -40,8 +40,6 @@ INSTALLED_APPS = [
 
     "rest_framework",
     "base",
-    # "api",
-    # "api.apps.ApiConfig",
     'django_filters',
 ]
 
