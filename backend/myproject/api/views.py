@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils import timezone
 from base.models import Users, Projects, Tasks, TaskEvents, ProjectCollaborators, Comments, ActivityLogs
 from .serializers import (
     UserSerializer, ProjectSerializer, TaskSerializer, 
@@ -45,6 +46,10 @@ class ProjectViewSet(BaseModelViewSet):
             queryset = queryset.filter(name__icontains=name)
             
         return queryset
+
+    def update(self, request, *args, **kwargs):
+        request.data['updated_at'] = timezone.now()
+        return super().update(request, *args, **kwargs)
 
 class TaskViewSet(BaseModelViewSet):
     queryset = Tasks.objects.all()
