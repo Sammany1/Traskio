@@ -128,6 +128,14 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+# Add this before DEFAULT_AUTO_FIELD
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ],
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
