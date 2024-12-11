@@ -20,23 +20,20 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className="todo-page-container"> 
-      <div className={styles.todoPage}>
-        <div className={styles.projectContainer}>
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              updateProject={updateProject}
-            />
-          ))}
-        </div>
-        <button className={styles.floatingButton} onClick={handleAddProject}>
-          +
-        </button>
+    <div className={styles.todo-page-container}>
+      <div className={styles.projectContainer}>
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            updateProject={updateProject}
+          />
+        ))}
       </div>
+      <button className={styles.floatingButton} onClick={handleAddProject}>
+        +
+      </button>
     </div>
-    
   );
 };
 

@@ -17,7 +17,6 @@ const App = () => {
         <Route path="/todos" element={<ToDoPage />} />
       </Routes>
     </Router>
-    // <ToDoPage />
   );
 };
 
