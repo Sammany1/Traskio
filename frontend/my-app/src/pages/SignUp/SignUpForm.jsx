@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 const SignUpForm = () => {
@@ -9,9 +10,13 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const handleSignUp = (e) => {
     e.preventDefault();
     // Handle sign up logic here (e.g., validate fields and submit)
+
+    navigate('/todos');
   };
 
   return (

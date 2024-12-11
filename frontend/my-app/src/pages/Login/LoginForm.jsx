@@ -1,15 +1,20 @@
 'use client';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './loginpage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     // Handle login logic here (e.g., validate email/password)
+
+    navigate('/todos');
   };
 
   return (

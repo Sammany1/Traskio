@@ -43,7 +43,7 @@ const ProjectCard = ({ project, updateProject }) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.todoCard}>
       {isEditing ? (
         <input
           type="text"
@@ -81,6 +81,7 @@ const ProjectCard = ({ project, updateProject }) => {
               </svg>
             </span>
             <button
+              style={{ background: 'none', width: '20px'}}
               className={styles.deleteBtn}
               onClick={() => handleDeleteTask(task.id)}
             >
@@ -104,7 +105,7 @@ const ProjectCard = ({ project, updateProject }) => {
           placeholder="Add Task..."
           className={styles.input}
         />
-        <button className={styles.btn} onClick={handleAddTask}>
+        <button className={styles.todoBtn} onClick={handleAddTask}>
           +
         </button>
       </div>

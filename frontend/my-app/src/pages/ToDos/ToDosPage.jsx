@@ -20,7 +20,7 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className={styles.todoPage}>
+    <div className={styles.todo-page-container}>
       <div className={styles.projectContainer}>
         {projects.map((project) => (
           <ProjectCard
