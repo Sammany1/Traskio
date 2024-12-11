@@ -9,14 +9,15 @@ import ToDoPage from "../pages/ToDos/ToDosPage";
 
 const App = () => {
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<HomePage />} />
-    //     <Route path="/login" element={<LoginForm />} />
-    //     <Route path="/signup" element={<SignUpForm />} />
-    //   </Routes>
-    // </Router>
-    <ToDoPage/>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/todos" element={<ToDoPage />} />
+      </Routes>
+    </Router>
+    // <ToDoPage />
   );
 };
 
