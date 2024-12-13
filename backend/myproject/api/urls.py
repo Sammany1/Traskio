@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
+from .views import SignupView, LoginView
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -13,4 +14,6 @@ router.register(r'activity-logs', views.ActivityLogViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('login/', LoginView.as_view(), name='login'),
 ]
