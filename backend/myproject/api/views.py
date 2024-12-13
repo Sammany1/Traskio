@@ -101,10 +101,14 @@ class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get('username')
+        identifier = request.data.get('identifier')
         password = request.data.get('password')
         try:
-            user = Users.objects.get(username=username, password=password)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+            user = Users.objects.get(username=identifier, password=password)
         except Users.DoesNotExist:
-            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                user = Users.objects.get(email=identifier, password=password)
+            except Users.DoesNotExist:
+                return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
