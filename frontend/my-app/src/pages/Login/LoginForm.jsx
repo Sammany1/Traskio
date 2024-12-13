@@ -1,26 +1,32 @@
 'use client';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userService } from '../../services/userService';
 import './loginpage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Handle login logic here (e.g., validate email/password)
-
-    navigate('/todos');
+    try {
+      const user = await userService.login({ email, password });
+      // Handle successful login (e.g., save user data, update context)
+      navigate('/todos');
+    } catch (err) {
+      setError('Invalid email or password');
+    }
   };
 
   return (
     <div className="login-container">
       <div className="form-container">
         <h2 className="login-title">Login</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label>Email</label>
