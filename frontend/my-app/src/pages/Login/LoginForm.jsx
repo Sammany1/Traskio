@@ -1,35 +1,43 @@
 'use client';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userService } from '../../services/userService';
 import './loginpage.css';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Handle login logic here (e.g., validate email/password)
-
-    navigate('/todos');
+    try {
+      const response = await userService.login({ identifier, password });
+      console.log('Login response:', response);
+      // Handle successful login (e.g., save user data, update context)
+      navigate('/todos');
+    } catch (err) {
+      console.error('Login error:', err);
+      setError(err.message || 'An error occurred. Please try again.');
+    }
   };
 
   return (
     <div className="login-container">
       <div className="form-container">
         <h2 className="login-title">Login</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="input-group">
-            <label>Email</label>
+            <label>Username or Email</label>
             <input 
-              type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              type="text" 
+              value={identifier} 
+              onChange={(e) => setIdentifier(e.target.value)} 
               required 
-              placeholder="Enter your email" 
+              placeholder="Enter your username or email" 
             />
           </div>
           <div className="input-group">
