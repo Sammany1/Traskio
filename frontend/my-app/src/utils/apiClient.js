@@ -1,9 +1,15 @@
 const API_BASE_URL = 'http://127.0.0.1:8000/';
 
+const getAuthToken = () => localStorage.getItem('access_token');
+
 export const apiClient = {
   get: async (endpoint) => {
     try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`);
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
       const result = await response.json();
       if (!response.ok) {
         throw new Error(result.error || 'Request failed');
@@ -20,6 +26,7 @@ export const apiClient = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAuthToken()}`,
         },
         body: JSON.stringify(data),
       });
@@ -39,6 +46,7 @@ export const apiClient = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAuthToken()}`,
         },
         body: JSON.stringify(data),
       });
@@ -56,6 +64,9 @@ export const apiClient = {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
       });
       const result = await response.json();
       if (!response.ok) {
@@ -80,6 +91,8 @@ export const apiClient = {
       if (!response.ok) {
         throw new Error(result.error || 'Login failed');
       }
+      localStorage.setItem('access_token', result.access);
+      localStorage.setItem('refresh_token', result.refresh);
       return result;
     } catch (error) {
       return Promise.reject(error.message || 'Invalid credentials. Please try again.');
