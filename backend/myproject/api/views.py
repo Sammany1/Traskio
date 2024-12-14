@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils import timezone
+from django.contrib.auth.hashers import check_password, make_password
 from base.models import Users, Projects, Tasks, TaskEvents, ProjectCollaborators, Comments, ActivityLogs
 from .serializers import (
     UserSerializer, ProjectSerializer, TaskSerializer, 
@@ -10,16 +11,12 @@ from .serializers import (
     CommentSerializer, ActivityLogSerializer
 )
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework import status
-
-@api_view(['GET'])
-def getData(request):
-    person = {'name': 'dennis', 'age': 22}
-    return Response(person)
 
 class BaseModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -62,6 +59,7 @@ class TaskViewSet(BaseModelViewSet):
     serializer_class = TaskSerializer
     filterset_fields = ['title', 'status', 'priority', 'assigned_to']
     search_fields = ['title', 'assigned_to__username']
+    permission_classes = [IsAuthenticated]
 
 class TaskEventViewSet(BaseModelViewSet):
     queryset = TaskEvents.objects.all()
@@ -93,6 +91,8 @@ class SignupView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
+            # Hash the password before saving
+            serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
             user = serializer.save()
             return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -103,12 +103,27 @@ class LoginView(APIView):
     def post(self, request):
         identifier = request.data.get('identifier')
         password = request.data.get('password')
-        try:
-            user = Users.objects.get(username=identifier, password=password)
-        except Users.DoesNotExist:
-            try:
-                user = Users.objects.get(email=identifier, password=password)
-            except Users.DoesNotExist:
-                return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         
-        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+        # Try to find user by username
+        try:
+            user = Users.objects.get(username=identifier)
+            if not check_password(password, user.password):
+                raise Users.DoesNotExist
+        except Users.DoesNotExist:
+            # If not found, try email
+            try:
+                user = Users.objects.get(email=identifier)
+                if not check_password(password, user.password):
+                    raise Users.DoesNotExist
+            except Users.DoesNotExist:
+                return Response(
+                    {'error': 'Invalid Credentials'}, 
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
+        
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'message': 'Login successful',
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
