@@ -19,8 +19,7 @@ const LoginPage = () => {
       // Handle successful login (e.g., save user data, update context)
       navigate('/todos');
     } catch (err) {
-      console.error('Login error:', err);
-      setError(err.message || 'An error occurred. Please try again.');
+      setError(err.message || 'Invalid credentials. Please try again.');
     }
   };
 

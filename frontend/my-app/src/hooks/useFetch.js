@@ -12,7 +12,7 @@ export const useFetch = (endpoint) => {
         const result = await apiClient.get(endpoint);
         setData(result);
       } catch (err) {
-        setError(err);
+        setError(err.message || 'An error occurred. Please try again.');
       } finally {
         setLoading(false);
       }
