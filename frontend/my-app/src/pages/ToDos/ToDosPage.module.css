@@ -1,4 +1,4 @@
-.todoPage {
+.todoPageContainer {
   position: relative;
   min-height: 100vh;
   padding: 20px;
@@ -21,7 +21,7 @@
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: var(--highlight);
+  background-color: black;
   color: white;
   border: none;
   border-radius: 50%;

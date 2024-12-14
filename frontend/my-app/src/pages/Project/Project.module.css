@@ -1,4 +1,4 @@
-.card {
+.todoCard {
   width: 300px;
   margin: 0 auto;
   padding: 20px;
@@ -28,17 +28,19 @@
   border-radius: 4px;
 }
 
-.btn {
-  background-color: var(--highlight);
+.todoBtn {
+  background-color: black;
   color: white;
   transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
   border-radius: 4px;
-  padding: 8px 12px;
+  padding: 8px;
   cursor: pointer;
   font-size: 16px;
+  width: 50px;
+  height: 40px;
 }
-.btn:hover {
+.todoBtn:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
 }

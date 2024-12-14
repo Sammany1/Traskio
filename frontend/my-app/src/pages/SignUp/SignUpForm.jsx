@@ -1,32 +1,53 @@
 'use client';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userService } from '../../services/userService';
 import './Signup.css';
 
 const SignUpForm = () => {
-  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSignUp = (e) => {
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // Handle sign up logic here (e.g., validate fields and submit)
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    try {
+      const response = await userService.signup({ username, email, password });
+      console.log('Sign-up response:', response);
+      if (response.message === 'User created successfully') {
+        navigate('/login');
+      } else {
+        setError('Sign-up failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Sign-up error:', err);
+      setError(err.message || 'An error occurred. Please try again.');
+    }
   };
 
   return (
     <div className="signup-container">
       <div className="form-container">
         <h2 className="signup-title">Sign Up</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSignUp}>
           <div className="input-group">
-            <label>Full Name</label>
+            <label>Username</label>
             <input 
               type="text" 
-              value={fullName} 
-              onChange={(e) => setFullName(e.target.value)} 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)} 
               required 
-              placeholder="Enter your full name" 
+              placeholder="Enter your username" 
             />
           </div>
           <div className="input-group">
