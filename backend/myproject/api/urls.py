@@ -3,7 +3,6 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .views import SignupView, LoginView
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
 
@@ -19,7 +18,7 @@ router.register(r'activity-logs', views.ActivityLogViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('signup/', SignupView.as_view(), name='signup'),
-    path('login/', LoginView.as_view(), name='token_obtain_pair'),
+    path('login/', LoginView.as_view(), name='login'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('user/projects/', views.UserProjectsView.as_view(), name='user-projects'),
 ]
