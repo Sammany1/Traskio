@@ -10,13 +10,11 @@ from .serializers import (
     TaskEventSerializer, ProjectCollaboratorSerializer,
     CommentSerializer, ActivityLogSerializer
 )
-from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework import status
+from base.authentication import get_tokens_for_user, CustomJWTAuthentication
 
 class BaseModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -59,7 +57,7 @@ class TaskViewSet(BaseModelViewSet):
     serializer_class = TaskSerializer
     filterset_fields = ['title', 'status', 'priority', 'assigned_to']
     search_fields = ['title', 'assigned_to__username']
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class TaskEventViewSet(BaseModelViewSet):
     queryset = TaskEvents.objects.all()
@@ -104,26 +102,23 @@ class LoginView(APIView):
         identifier = request.data.get('identifier')
         password = request.data.get('password')
         
-        # Try to find user by username
         try:
             user = Users.objects.get(username=identifier)
             if not check_password(password, user.password):
                 raise Users.DoesNotExist
+            tokens = get_tokens_for_user(user)
+            return Response({
+                'message': 'Login successful',
+                **tokens
+            }, status=status.HTTP_200_OK)
         except Users.DoesNotExist:
-            # If not found, try email
-            try:
-                user = Users.objects.get(email=identifier)
-                if not check_password(password, user.password):
-                    raise Users.DoesNotExist
-            except Users.DoesNotExist:
-                return Response(
-                    {'error': 'Invalid Credentials'}, 
-                    status=status.HTTP_401_UNAUTHORIZED
-                )
-        
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'message': 'Login successful',
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }, status=status.HTTP_200_OK)
+            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class UserProjectsView(APIView):
+    authentication_classes = [CustomJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        projects = Projects.objects.filter(owner=request.user).prefetch_related('tasks_set')
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

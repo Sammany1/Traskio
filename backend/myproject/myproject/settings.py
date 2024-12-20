@@ -98,8 +98,6 @@ DATABASES = {
 
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -143,13 +141,22 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'base.authentication.CustomJWTAuthentication',
     ],
+}
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     # Add other origins if needed
+]
+
+AUTHENTICATION_BACKENDS = [
+    'base.authentication.CustomUserBackend',
 ]
 
 # Default primary key field type
