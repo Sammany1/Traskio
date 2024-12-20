@@ -57,7 +57,7 @@ class TaskViewSet(BaseModelViewSet):
     serializer_class = TaskSerializer
     filterset_fields = ['title', 'status', 'priority', 'assigned_to']
     search_fields = ['title', 'assigned_to__username']
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 class TaskEventViewSet(BaseModelViewSet):
     queryset = TaskEvents.objects.all()
