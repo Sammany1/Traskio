@@ -9,14 +9,16 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
-class ProjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Projects
-        fields = '__all__'
-
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tasks
+        fields = '__all__'
+
+class ProjectSerializer(serializers.ModelSerializer):
+    tasks = TaskSerializer(many=True, read_only=True, source='tasks_set')
+
+    class Meta:
+        model = Projects
         fields = '__all__'
 
 class TaskEventSerializer(serializers.ModelSerializer):

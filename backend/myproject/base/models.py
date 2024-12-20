@@ -6,7 +6,12 @@ class Users(models.Model):
     password = models.CharField(max_length=255)
     email = models.CharField(unique=True, max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
+    # Required for JWT authentication
+    @property
+    def is_authenticated(self):
+        return True
+        
     class Meta:
         managed = False
         db_table = 'users'

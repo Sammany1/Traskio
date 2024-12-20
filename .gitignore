@@ -1,0 +1,44 @@
+# Django
+*.pyc
+__pycache__/
+.env
+db.sqlite3
+*/migrations/*.py
+*/migrations/*.pyc
+/media/
+staticfiles/
+settings_local.py
+
+# React.js
+node_modules/
+build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# General
+*.log
+*.bak
+*.swp
+*.tmp
+*.pid
+*.seed
+*.pid.lock
+.DS_Store
+Thumbs.db
+*.~lock.*
+.vscode/
+.idea/
+*.iml
+coverage/
+*.coverage
+*.lcov
+coverage-final.json
+
+# Python virtual environments
+venv/
+env/
