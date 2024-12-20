@@ -37,7 +37,7 @@ class Tasks(models.Model):
     status = models.CharField(max_length=50, default='To Do')
     priority = models.CharField(max_length=50, default='Medium')
     start_date = models.DateField(blank=True, null=True)
-    due_date = models.DateField()
+    due_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
