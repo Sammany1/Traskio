@@ -2,40 +2,59 @@
 import React, { useState, useRef } from 'react';
 import ProgressBar from '../../components/ui/ProgressBar';
 import styles from './Project.module.css';
+import { projectService } from '../../services/projectService';
 
-const ProjectCard = ({ project, updateProject }) => {
-  const { id, title, isEditing } = project;
-  const [tasks, setTasks] = useState([]);
+const ProjectCard = ({ project, updateProject, handleDeleteProject }) => {
+  const { id, title, isEditing, tasks: initialTasks } = project;
+  const [tasks, setTasks] = useState(initialTasks || []);
   const inputRef = useRef();
 
-  const handleAddTask = () => {
+  const handleAddTask = async () => {
     const text = inputRef.current.value;
     if (!text.trim()) return;
-    const newTask = {
-      id: Date.now(),
-      text,
-      completed: false,
-    };
-    setTasks([...tasks, newTask]);
-    inputRef.current.value = '';
+    const newTask = { id: Date.now(), text, completed: false };
+    const updatedTasks = [...tasks, newTask];
+    try {
+      await projectService.updateProject(id, { ...project, tasks: updatedTasks });
+      setTasks(updatedTasks);
+      inputRef.current.value = '';
+    } catch (error) {
+      console.error('Failed to add task:', error);
+    }
   };
 
-  const handleToggleTask = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
+  const handleToggleTask = async (taskId) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
     );
+    try {
+      await projectService.updateProject(id, { ...project, tasks: updatedTasks });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Failed to update task:', error);
+    }
   };
 
-  const handleDeleteTask = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  const handleDeleteTask = async (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    try {
+      await projectService.updateProject(id, { ...project, tasks: updatedTasks });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+    }
   };
 
   const completedTasks = tasks.filter((task) => task.completed).length;
 
-  const handleTitleChange = (e) => {
-    updateProject(id, { title: e.target.value });
+  const handleTitleChange = async (e) => {
+    const newTitle = e.target.value;
+    try {
+      await projectService.updateProject(id, { ...project, title: newTitle });
+      updateProject(id, { title: newTitle });
+    } catch (error) {
+      console.error('Failed to update project title:', error);
+    }
   };
 
   const handleTitleBlur = () => {
@@ -50,7 +69,7 @@ const ProjectCard = ({ project, updateProject }) => {
           value={title}
           onChange={handleTitleChange}
           onBlur={handleTitleBlur}
-          placeholder="Enter ToDo Title"
+          placeholder="Enter Project Title"
           className={styles.titleInput}
           autoFocus
         />
