@@ -4,14 +4,14 @@ const ProgressBar = ({ progress }) => {
   const progressBarStyle = {
     width: '100%',
     height: '10px',
-    backgroundColor: '#e0e0e0', 
+    backgroundColor: '#778fb3', 
     borderRadius: '5px',
     marginTop: '10px',
   };
 
   const filledBarStyle = {
     height: '100%',
-    backgroundColor: '#4caf50', 
+    backgroundColor: 'rgb(128, 178, 128)', 
     borderRadius: '5px',
     width: `${progress}%`, 
     transition: 'width 0.3s ease-in-out', 

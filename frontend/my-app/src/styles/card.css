@@ -5,7 +5,6 @@
     border: 1px solid var(--neutral);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
     transition: all 0.3s ease;
 }
 
@@ -14,9 +13,11 @@
     color: var(--secondary-text); 
     font-size: 1.3rem;
     font-weight: 200;
+    text-align: center;
 }
 
-.card-box p {
+.card p {
     color: var(--primary-text);
     font-size: 1rem;
+    text-align: center;
 }

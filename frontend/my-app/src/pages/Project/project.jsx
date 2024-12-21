@@ -1,7 +1,8 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import ProgressBar from '../../components/ui/ProgressBar';
-import styles from './Project.module.css';
+import '../../styles/globals.css';
+import styles from './project.module.css';
 
 const ProjectCard = ({ project, updateProject }) => {
   const { id, title, isEditing } = project;
@@ -43,7 +44,7 @@ const ProjectCard = ({ project, updateProject }) => {
   };
 
   return (
-    <div className={styles.todoCard}>
+    <div className="card todoCard">
       {isEditing ? (
         <input
           type="text"
@@ -55,7 +56,7 @@ const ProjectCard = ({ project, updateProject }) => {
           autoFocus
         />
       ) : (
-        <h2 onClick={() => updateProject(id, { isEditing: true })}>
+        <h2 className="card-title" onClick={() => updateProject(id, { isEditing: true })}>
           {title || 'Untitled Project'}
         </h2>
       )}
@@ -103,7 +104,7 @@ const ProjectCard = ({ project, updateProject }) => {
         <input
           ref={inputRef}
           placeholder="Add Task..."
-          className={styles.input}
+          className="input"
         />
         <button className={styles.todoBtn} onClick={handleAddTask}>
           +
