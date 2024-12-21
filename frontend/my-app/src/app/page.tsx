@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "../pages/Home/Header";
-import Footer from "../pages/Home/Footer"; // Import the Footer component
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer"; // Import the Footer component
 import HomePage from "../pages/Home/HomePage";
 import ProfilePage from "../pages/Profilepage/Profilepage";
 import LoginForm from "../pages/Login/LoginForm";

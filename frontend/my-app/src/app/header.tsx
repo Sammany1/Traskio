@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../pages/Home/Header";
+import Header from "../components/layout/Header";
 
 const AppHeader: React.FC = () => {
   return (
