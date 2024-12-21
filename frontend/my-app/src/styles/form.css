@@ -1,9 +1,8 @@
 /* Input Fields */
 .title {
-  font-family : var(--text-font);
+  font-family : var(--special-font);
   font-weight: bold;
   font-size: 2.5rem;
-  text-transform: uppercase;
   margin-bottom: 1.4rem;
 }
 

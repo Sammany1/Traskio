@@ -1,9 +1,14 @@
-/* Global variables for colors, fonts, and other common styles */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400&family=Caveat:wght@400&display=swap');
-
 @font-face {
   font-family: 'Island Moments';
   src: url('../app/fonts/DancingScript-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../app/fonts/Orbitron-VariableFont_wght.ttf');
+}
+@font-face {
+  font-family: 'Digital-7';
+  src: url('../app/fonts/digital-7\ \(mono\).ttf');
 }
 
 :root {
@@ -18,10 +23,10 @@
   --light: #F5F5F5; 
   
   /* Fonts */
-  --title-font: 'Island Moments', cursive; /* For titles */
-  --text-font: 'Quicksand', sans-serif;   /* For body text */
-  --number-font: 'Roboto Mono', monospace; /* For numbers */
-  --special-font: 'Dancing Script', cursive; /* Decorative font */
+  --title-font: 'Island Moments', cursive; 
+  --text-font: 'Quicksand', sans-serif;   
+  --number-font: 'Digital-7', monospace; 
+  --special-font: 'Orbitron';
 }
 
 /* Global Reset */

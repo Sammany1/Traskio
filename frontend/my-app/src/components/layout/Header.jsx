@@ -5,6 +5,7 @@ import "../../styles/header.css";
 
 const Header = () => {
   const [showAuthLinks, setShowAuthLinks] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   const renderLinks = () => {
@@ -54,7 +55,7 @@ const Header = () => {
           </Link>
           <hr className="divider" />
           <Link to="/signup" className="nav-link">
-            Signup
+            Sign-up
           </Link>
         </>
       );
@@ -67,9 +68,21 @@ const Header = () => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="header">
-      <div className="logo">Task Tracker</div>
+    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="logo">
+        <img src="/logo.png" alt="Logo" className="logo-img" />
+          Traskio
+        </div>
       <nav className="nav">{renderLinks()}</nav>
     </header>
   );

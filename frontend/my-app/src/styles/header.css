@@ -6,20 +6,34 @@
   padding: 20px 30px;
   background: transparent;
   color: var(--primary-text);
-  font-family: var(--text-font);
-  font-weight: bold;
+  font-family: var(--special-font);
+  font-weight: 300;
   text-transform: uppercase;
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.header.scrolled {
+  background-color: var(--primary-bg);
 }
 
 /* Logo styling */
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
   font-family: var(--special-font);
+  display: flex;
+  align-items: center;
 }
+
+.logo-img {
+  width: 50px; 
+  height: 50px;
+  margin-right: 10px;
+}
+
 
 /* Navigation container */
 .nav {
