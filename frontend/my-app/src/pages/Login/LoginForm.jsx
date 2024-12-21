@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userService } from '../../services/userService';
-import '../../styles/globals.css?v=1';
+import '../../styles/globals.css?v=1'; 
 import './loginpage.css';
 
 const LoginPage = () => {
