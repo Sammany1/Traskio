@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import "./ProfilePage.css";
+import "./Profilepage.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
