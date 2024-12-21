@@ -15,7 +15,7 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const currentTime = time.toLocaleTimeString();
+  const currentTime = time.toLocaleTimeString('en-GB', { hour12: false });
 
   return (
     <div className="homepage-container">
