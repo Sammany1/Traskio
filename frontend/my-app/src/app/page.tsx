@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/todos" element={<ToDoPage />} />
       </Routes>
       <Footer /> {/* Add Footer here */}
     </Router>
