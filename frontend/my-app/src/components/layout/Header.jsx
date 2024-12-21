@@ -1,18 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useLocation } from "react-router-dom"; 
 import "../../styles/header.css";
 
 const Header = () => {
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    // Add any logout logic if needed (e.g., clearing tokens)
-    setShowAuthLinks(true); // Ensure Login and Signup links are shown after logout
-    navigate("/"); // Navigate to the home page after logout
-  };
 
   const renderLinks = () => {
     if (location.pathname === "/login" || location.pathname === "/signup") {
