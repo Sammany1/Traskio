@@ -5,6 +5,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginForm from "../pages/Login/LoginForm";
 import SignUpForm from "../pages/SignUp/SignUpForm";
 import ToDoPage from "../pages/ToDos/ToDosPage";
+import '../styles/globals.css';
 
 const App = () => {
   return (

@@ -1,0 +1,21 @@
+.card {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    padding: 20px;
+    border: 1px solid var(--neutral);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-title {
+    font-family: var(--special-font);
+    color: var(--secondary-text); 
+    font-size: 1.5rem;
+}
+
+.card-box p {
+    color: var(--primary-text);
+    font-size: 1rem;
+}

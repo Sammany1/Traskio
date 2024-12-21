@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userService } from '../../services/userService';
+import '../../styles/globals.css?v=1';
 import './Signup.css';
 
 const SignUpForm = () => {
@@ -35,12 +36,12 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="form-container">
-        <h2 className="signup-title">Sign Up</h2>
+    <div className="signupContainer">
+      <div className="card formContainer">
+        <h2 className="title">Sign Up</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSignUp}>
-          <div className="input-group">
+          <div className="form">
             <label>Username</label>
             <input 
               type="text" 
@@ -50,7 +51,7 @@ const SignUpForm = () => {
               placeholder="Enter your username" 
             />
           </div>
-          <div className="input-group">
+          <div className="form">
             <label>Email</label>
             <input 
               type="email" 
@@ -60,7 +61,7 @@ const SignUpForm = () => {
               placeholder="Enter your email" 
             />
           </div>
-          <div className="input-group">
+          <div className="form">
             <label>Password</label>
             <input 
               type="password" 
@@ -70,7 +71,7 @@ const SignUpForm = () => {
               placeholder="Enter your password" 
             />
           </div>
-          <div className="input-group">
+          <div className="form">
             <label>Confirm Password</label>
             <input 
               type="password" 
@@ -80,9 +81,9 @@ const SignUpForm = () => {
               placeholder="Confirm your password" 
             />
           </div>
-          <button type="submit" className="signup-btn">Sign Up</button>
+          <button type="submit" className="button formButton">Sign Up</button>
         </form>
-        <div className="login-link">
+        <div>
           <p>Already have an account? <Link to="/login">Login to your account</Link></p>
         </div>
       </div>
