@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import ProjectCard from '../Project/project';
+import '../../styles/globals.css'
 import styles from './ToDosPage.module.css';
 
 const ToDoPage = () => {
@@ -20,7 +21,7 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className={styles.todoPageContainer}>
+    <div className="container">
       <div className={styles.projectContainer}>
         {projects.map((project) => (
           <ProjectCard

@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'Island Moments';
+  src: url('../app/fonts/DancingScript-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../app/fonts/Orbitron-VariableFont_wght.ttf');
+}
+@font-face {
+  font-family: 'Digital-7';
+  src: url('../app/fonts/digital-7\ \(mono\).ttf');
+}
+
+:root {
+  /* Colors */
+  --primary-bg: #121212;
+  --secondary-bg: #1b2129; 
+  --primary-text: #e2ebf9; 
+  --secondary-text: #778fb3;
+  --highlight: #AACCFF; 
+  --error-bg: #B71C1C; 
+  --neutral: #778fb3; 
+  --light: #F5F5F5; 
+  
+  /* Fonts */
+  --title-font: 'Island Moments', cursive; 
+  --text-font: 'Quicksand', sans-serif;   
+  --number-font: 'Digital-7', monospace; 
+  --special-font: 'Orbitron';
+}
+
+/* Global Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--text-font);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  min-height: 100vh;
+}
+
+/* Global Flexbox Layout */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Grid Layout */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* General Container */
+.container {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--primary-bg);
+  color: var(--highlight);
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+/* Import button and card styles */
+@import './button.css';
+@import './card.css';
+@import './headings.css';
+@import './form.css';
+@import './link.css';

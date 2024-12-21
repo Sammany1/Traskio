@@ -1,40 +1,11 @@
 /* General Container */
 .homepage-container {
-  font-family: var(--text-font); 
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
-  padding: 20px;
+  padding: 80px 20px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: flex-start;
   align-items: center;
-}
-
-/* Auth Links */
-.auth-links {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.auth-link {
-  font-family: 'Island Moments', sans-serif;
-  color: var(--secondary-text);
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-.auth-link:hover {
-  color: #101010;
-}
-
-.divider {
-  color: var(--primary-text);
 }
 
 /* Main Content Section */
@@ -42,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 50px;
+  gap: 120px;
   max-width: 1200px;
   width: 100%;
   margin-top: 20px;
@@ -53,27 +24,20 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-left: 30px; 
+  padding-left: 30px;
   text-align: left;
 }
 
 .slogan {
   font-family: var(--special-font);
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--secondary-text);
-  font-style: italic;
-  margin-top: 30px; 
-  text-align: center; 
+  margin-top: 30px;
+  text-align: center;
+  font-weight: 500;
 }
 
-.time h2 {
-  font-family: var(--number-font); 
-  color: var(--highlight);
-  font-size: 3rem; 
-  margin-top: 20px;
-  text-align: center; 
-}
-
+/* Features Boxes */
 .features-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -81,62 +45,26 @@
   margin-top: 30px;
 }
 
-.feature-box {
-  background-color: var(--light);
-  border: 1px solid var(--neutral);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.feature-box:hover {
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+.ho:hover { 
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
-}
-
-.feature-title {
-  font-family: var(--special-font);
-  color: var(--secondary-text);
-  font-size: 1.5rem;
-}
-
-.feature-box p {
-  color: var(--primary-text);
-  font-size: 1rem;
 }
 
 /* Sign Up Button */
 .sign-up-btn-container {
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: center;
 }
 
-.sign-up-btn {
-  padding: 15px 30px;
-  background-color: var(--highlight);
-  color: white;
-  font-size: 1.2rem;
-  font-family: 'Island Moments', sans-serif;
-  text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.sign-up-btn:hover {
-  background-color: #101010;
-  transform: translateY(-5px);
-}
-
-.image-container {
+/* Time Container */
+.time-container {
   flex: 1;
   text-align: center;
 }
 
-.app-image {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+.time-container h2 {
+  font-family: var(--number-font);
+  color: var(--highlight);
+  font-size: 9rem; 
+  margin-top: 20px;
 }

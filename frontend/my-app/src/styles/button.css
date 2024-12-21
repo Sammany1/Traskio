@@ -1,0 +1,19 @@
+.button {
+    padding: 15px 30px;
+    background-color: var(--highlight); 
+    color: var(--primary-bg);
+    font-size: 1rem;
+    font-family: var(--special-font);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.1s ease;
+    cursor: pointer;
+}
+  
+.button:hover {
+  background-color: var(--primary-bg);
+  color: var(--highlight);
+  border: 1px solid var(--neutral);
+  text-decoration: none;
+}

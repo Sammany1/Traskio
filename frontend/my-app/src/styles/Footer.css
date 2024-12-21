@@ -1,0 +1,38 @@
+.footer {
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    padding: 20px 40px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+  }
+  
+  .footer-links {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-link {
+    font-size: 16px;
+    color: var(--primary-text);
+    text-decoration: none;
+    margin: 0 20px;
+    position: relative;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    background: none; 
+    border: none; 
+  }
+  
+  .footer-link:hover {
+    color: var(--secondary-text);
+  }
+  
+  .footer-text {
+    font-size: 14px;
+    color: var(--secondary-text);
+  }
+  
