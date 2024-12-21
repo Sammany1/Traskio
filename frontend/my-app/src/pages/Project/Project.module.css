@@ -1,10 +1,6 @@
 .todoCard {
   width: 300px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -14,6 +10,17 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  position: relative;
 }
 
 .inputWrapper {
@@ -21,36 +28,31 @@
   gap: 10px;
 }
 
-.input {
-  flex-grow: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
 .todoBtn {
-  background-color: black;
-  color: white;
+  background-color: var(--highlight);
+  color: var(--primary-bg);
   transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
   border-radius: 4px;
-  padding: 8px;
+  padding: 0;
+  padding-bottom: 2px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 2rem;
   width: 50px;
   height: 40px;
+  font-family: var(--special-font);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  line-height: 1;
+  margin-top: 2px;
 }
 .todoBtn:hover {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
-}
-
-.taskItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  position: relative;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .checkbox,
@@ -104,8 +106,8 @@
 }
 
 .checked .checkboxCircle {
-  fill: rgb(103, 197, 103);
-  stroke: rgb(93, 172, 93);
+  fill: var(--complete);
+  stroke: var(--complete);
 }
 
 .path {
@@ -115,7 +117,7 @@
 
 
 .checkbox.checked .checkboxIcon {
-  fill: rgb(103, 197, 103);
+  fill: var(--complete);
 }
 
 
@@ -136,15 +138,4 @@
 
 .deleteBtn:hover .trashIcon {
   fill: lightgrey; 
-}
-
-
-
-.titleInput {
-  width: 94%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 18px;
-  margin-bottom: 16px;
 }

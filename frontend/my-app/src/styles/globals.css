@@ -21,6 +21,7 @@
   --error-bg: #B71C1C; 
   --neutral: #778fb3; 
   --light: #F5F5F5; 
+  --complete: rgb(128, 178, 128);
   
   /* Fonts */
   --title-font: 'Island Moments', cursive; 
