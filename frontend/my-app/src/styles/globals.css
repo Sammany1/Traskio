@@ -1,0 +1,65 @@
+/* Global variables for colors, fonts, and other common styles */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400&family=Caveat:wght@400&display=swap');
+
+@font-face {
+  font-family: 'Island Moments';
+  src: url('../app/fonts/DancingScript-Regular.ttf') format('truetype');
+}
+
+:root {
+  /* Colors */
+  --primary-bg: #121212;
+  --secondary-bg: #656877; 
+  --primary-text: #e2ebf9; 
+  --secondary-text: #778fb3;
+  --highlight: #AACCFF; 
+  --error-bg: #B71C1C; 
+  --neutral: #778fb3; 
+  --light: #F5F5F5; 
+  
+  /* Fonts */
+  --title-font: 'Island Moments', cursive; /* For titles */
+  --text-font: 'Quicksand', sans-serif;   /* For body text */
+  --number-font: 'Roboto Mono', monospace; /* For numbers */
+  --special-font: 'Dancing Script', cursive; /* Decorative font */
+}
+
+/* Global Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--text-font);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+/* Global Flexbox Layout */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Grid Layout */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* General Container */
+.container {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--secondary-bg);
+  color: var(--primary-text);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Import button and card styles */
+@import './button.css';
+@import './card.css';
+@import './headings.css';
+@import './form.css';
+@import './link.css';

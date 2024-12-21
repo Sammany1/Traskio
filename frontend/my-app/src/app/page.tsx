@@ -7,7 +7,8 @@ import HomePage from "../pages/Home/HomePage";
 import ProfilePage from "../pages/Profilepage/Profilepage";
 import LoginForm from "../pages/Login/LoginForm";
 import SignUpForm from "../pages/SignUp/SignUpForm";
-import TaskFilter from "../TaskFiltration/TaskFilter";
+import ToDoPage from "../pages/ToDos/ToDosPage";
+import '../styles/globals.css';
 
 const App = () => {
   return (
@@ -18,7 +19,6 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/taskfilter" element={<TaskFilter />} />
       </Routes>
       <Footer /> {/* Add Footer here */}
     </Router>

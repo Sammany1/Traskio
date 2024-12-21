@@ -1,0 +1,50 @@
+/* Input Fields */
+.title {
+  font-family : var(--text-font);
+  font-weight: bold;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+  padding : 20px 40px;
+}
+
+.form label {
+  margin-bottom: 0.3rem; 
+  color: var(--primary-text);
+}
+
+
+input {
+    width: 93%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--primary-bg);
+    border: 1px solid var(--primary-text);
+    border-radius: 5px;
+    color: var(--primary-text);
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+  
+input:focus {
+  border-color: var(--highlight);
+  outline: none;
+}
+
+
+.formButton {
+  width: 100%;
+}

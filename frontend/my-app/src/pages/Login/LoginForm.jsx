@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userService } from '../../services/userService';
-import './LoginPage.css';
+import '../../styles/globals.css?v=1'; 
+import './loginpage.css';
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState('');
@@ -24,12 +25,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="form-container">
-        <h2 className="login-title">Login</h2>
+    <div className="loginContainer">
+      <div className="card formContainer">
+        <h2 className="title">Login</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
-          <div className="input-group">
+          <div className="form">
             <label>Username or Email</label>
             <input 
               type="text" 
@@ -39,7 +40,7 @@ const LoginPage = () => {
               placeholder="Enter your username or email" 
             />
           </div>
-          <div className="input-group">
+          <div className="form">
             <label>Password</label>
             <input 
               type="password" 
@@ -49,12 +50,12 @@ const LoginPage = () => {
               placeholder="Enter your password" 
             />
           </div>
-          <div className="forgot-password">
+          {/* <div>
             <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-          <button type="submit" className="login-btn">Login</button>
+          </div> */}
+          <button type="submit" className="button formButton">Login</button>
         </form>
-        <div className="signup-link">
+        <div>
           <p>Don't have an account? <Link to="/signup">Create an account</Link></p>
         </div>
       </div>
