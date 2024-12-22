@@ -1,9 +1,16 @@
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .todoCard {
   width: 300px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
 }
 
 .taskList {
@@ -136,6 +143,19 @@
   transition: fill 0.3s ease;
 }
 
-.deleteBtn:hover .trashIcon {
+.deleteBtn:hover, .deleteCardBtn:hover .trashIcon {
   fill: lightgrey; 
+}
+
+.deleteCardBtn {
+  visibility: visible;
+  opacity: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import ProjectCard from '../Project/project';
-import '../../styles/globals.css'
+import ProjectCard from './Project/project';
+import '../../styles/globals.css';
 import styles from './ToDosPage.module.css';
 
 const ToDoPage = () => {
@@ -20,6 +20,10 @@ const ToDoPage = () => {
     );
   };
 
+  const deleteProject = (projectId) => {
+    setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+  };
+
   return (
     <div className="container">
       <div className={styles.projectContainer}>
@@ -28,6 +32,7 @@ const ToDoPage = () => {
             key={project.id}
             project={project}
             updateProject={updateProject}
+            deleteProject={deleteProject}
           />
         ))}
       </div>

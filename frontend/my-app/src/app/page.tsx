@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer"; // Import the Footer component
+import Footer from "../components/layout/Footer"; 
 import HomePage from "../pages/Home/HomePage";
 import ProfilePage from "../pages/Profilepage/Profilepage";
 import LoginForm from "../pages/Login/LoginForm";
@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/todos" element={<ToDoPage />} />
       </Routes>
-      <Footer /> {/* Add Footer here */}
+      <Footer />
     </Router>
   );
 };
