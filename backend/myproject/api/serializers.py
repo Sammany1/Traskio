@@ -15,7 +15,7 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProjectSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(many=True, read_only=True, source='tasks_set')
+    tasks = TaskSerializer(many=True, read_only=False, source='tasks_set')
 
     class Meta:
         model = Projects
