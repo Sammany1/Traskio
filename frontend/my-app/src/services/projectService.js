@@ -8,7 +8,7 @@ export const projectService = {
       // Map response to include only name and title fields
       return response.map((project) => ({
         id: project.id,
-        name: project.name,
+        title: project.name,
         tasks: project.tasks.map((task) => ({
           id: task.id,
           title: task.title,
