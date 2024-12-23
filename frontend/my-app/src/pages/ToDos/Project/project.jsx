@@ -5,8 +5,8 @@ import '../../../styles/globals.css';
 import styles from './project.module.css';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
-  const { id, title, isEditing } = project;
-  const [tasks, setTasks] = useState([]);
+  const { id, title, isEditing, tasks: initialTasks } = project;
+  const [tasks, setTasks] = useState(initialTasks || []);
   const inputRef = useRef();
 
   const handleAddTask = () => {
@@ -14,7 +14,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
     if (!text.trim()) return;
     const newTask = {
       id: Date.now(),
-      text,
+      title: text,
       completed: false,
     };
     setTasks([...tasks, newTask]);
@@ -88,7 +88,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
                 task.completed ? styles.completed : ''
               }`}
             >
-              {task.text}
+              {task.title}
             </span>
             <span
               className={`${styles.checkbox} ${
