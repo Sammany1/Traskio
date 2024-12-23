@@ -20,7 +20,12 @@ class Projects(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    owner = models.ForeignKey('Users', models.CASCADE, db_column='owner_id')
+    owner = models.ForeignKey(
+        'Users',
+        on_delete=models.CASCADE,
+        db_column='owner_id'
+    )
+    finished = models.BooleanField(default=False)  # New field to match the schema
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
@@ -31,13 +36,13 @@ class Projects(models.Model):
 class Tasks(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    project = models.ForeignKey(Projects, models.CASCADE, db_column='project_id')
-    assigned_to = models.ForeignKey('Users', models.SET_NULL, db_column='assigned_to', blank=True, null=True)
-    status = models.CharField(max_length=50, default='To Do')
-    priority = models.CharField(max_length=50, default='Medium')
-    start_date = models.DateField(blank=True, null=True)
-    due_date = models.DateField(blank=True, null=True)
+    completed = models.BooleanField(default=False)  # New field to match the schema
+    project = models.ForeignKey(
+        'Projects',
+        on_delete=models.CASCADE,
+        db_column='project_id'
+    )
+    due_date = models.DateField()  # Due date is now mandatory
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
