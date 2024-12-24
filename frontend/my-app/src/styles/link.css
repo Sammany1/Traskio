@@ -3,7 +3,6 @@ a {
     color: var(--highlight);
     text-decoration: none;
     transition: color 0.3s;
-    margin: 0 15px;
 }
   
 a:hover {
