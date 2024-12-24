@@ -55,8 +55,8 @@ class ProjectViewSet(BaseModelViewSet):
 class TaskViewSet(BaseModelViewSet):
     queryset = Tasks.objects.all()
     serializer_class = TaskSerializer
-    filterset_fields = ['title', 'status', 'priority', 'assigned_to']
-    search_fields = ['title', 'assigned_to__username']
+    filterset_fields = ['title']
+    search_fields = ['title']
     # permission_classes = [IsAuthenticated]
 
 class TaskEventViewSet(BaseModelViewSet):
