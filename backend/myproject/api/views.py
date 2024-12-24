@@ -122,3 +122,12 @@ class UserProjectsView(APIView):
         projects = Projects.objects.filter(owner=request.user).prefetch_related('tasks_set')
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data.copy()
+        data['owner'] = request.user.id  # Set the owner to the authenticated user
+        serializer = ProjectSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
