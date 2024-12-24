@@ -6,6 +6,8 @@ import "../../styles/header.css";
 const Header = () => {
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const location = useLocation();
 
   const renderLinks = () => {
@@ -21,21 +23,62 @@ const Header = () => {
 
     if (location.pathname === "/todos") {
       return (
-        <div
-          className="nav-link dropdown"
-          onMouseEnter={() => setShowAuthLinks(false)}
-          onMouseLeave={() => setShowAuthLinks(false)}
-        >
-          Account
-          <div className="dropdown-menu">
-            <Link to="/profile" className="dropdown-item">
-              Profile
-            </Link>
-            <Link to="/" className="dropdown-item">
-              Logout
-            </Link>
+        <>
+          <div
+            className="nav-link dropdown"
+            onMouseEnter={() => setShowFilterDropdown(true)}
+            onMouseLeave={() => setShowFilterDropdown(false)}
+          >
+            <span>{selectedFilter} </span>
+            <span className="down-arrow"></span>
+            {showFilterDropdown && (
+              <div className="dropdown-menu">
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    setSelectedFilter("All");
+                    setShowFilterDropdown(false);
+                  }}
+                >
+                  All
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    setSelectedFilter("Done");
+                    setShowFilterDropdown(false);
+                  }}
+                >
+                  Done
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    setSelectedFilter("In Progress");
+                    setShowFilterDropdown(false);
+                  }}
+                >
+                  In Progress
+                </div>
+              </div>
+            )}
           </div>
-        </div>
+          <div
+            className="nav-link dropdown"
+            onMouseEnter={() => setShowAuthLinks(false)}
+            onMouseLeave={() => setShowAuthLinks(false)}
+          >
+            Account
+            <div className="dropdown-menu">
+              <Link to="/profile" className="dropdown-item">
+                Profile
+              </Link>
+              <Link to="/" className="dropdown-item">
+                Logout
+              </Link>
+            </div>
+          </div>
+        </>
       );
     }
 
