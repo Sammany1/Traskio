@@ -40,6 +40,7 @@ coverage/
 *.coverage
 *.lcov
 coverage-final.json
+__pycache__/
 *.pyc
 
 # Python virtual environments
