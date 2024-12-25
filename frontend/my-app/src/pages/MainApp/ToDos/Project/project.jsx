@@ -5,8 +5,8 @@ import '../../../../styles/globals.css';
 import styles from './project.module.css';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
-  const { id, title, isEditing } = project;
-  const [tasks, setTasks] = useState([]);
+  const { id, name, isEditing, tasks: initialTasks } = project;
+  const [tasks, setTasks] = useState(initialTasks || []);
   const inputRef = useRef();
 
   const handleAddTask = () => {
@@ -14,7 +14,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
     if (!text.trim()) return;
     const newTask = {
       id: Date.now(),
-      text,
+      title: text,
       completed: false,
     };
     setTasks([...tasks, newTask]);
@@ -35,11 +35,11 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
 
   const completedTasks = tasks.filter((task) => task.completed).length;
 
-  const handleTitleChange = (e) => {
-    updateProject(id, { title: e.target.value });
+  const handleProjectNameChange = (e) => {
+    updateProject(id, { name: e.target.value });
   };
 
-  const handleTitleBlur = () => {
+  const handleProjectNameBlur = () => {
     updateProject(id, { isEditing: false });
   };
 
@@ -49,10 +49,10 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
         {isEditing ? (
           <input
             type="text"
-            value={title}
-            onChange={handleTitleChange}
-            onBlur={handleTitleBlur}
-            placeholder="Enter ToDo Title"
+            value={name}
+            onChange={handleProjectNameChange}
+            onBlur={handleProjectNameBlur}
+            placeholder="Enter Project Name"
             className={styles.titleInput}
             autoFocus
           />
@@ -61,7 +61,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
             className="card-title"
             onClick={() => updateProject(id, { isEditing: true })}
           >
-            {title || 'Untitled Project'}
+            {name || 'Untitled Project'}
           </h2>
         )}
         {!isEditing && (
@@ -88,7 +88,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
                 task.completed ? styles.completed : ''
               }`}
             >
-              {task.text}
+              {task.title}
             </span>
             <span
               className={`${styles.checkbox} ${
