@@ -20,6 +20,7 @@ export const projectService = {
       throw error;
     }
   },
+
   createProject: async (projectData) => {
     const token = localStorage.getItem('accessToken');
     try {
@@ -27,9 +28,13 @@ export const projectService = {
       return response;
     } catch (error) {
       console.error('Error creating project:', error);
+      if (error.response) {
+        console.error('Server response:', error.response.data);
+      }
       throw error;
     }
   },
+
   updateProject: async (projectId, projectData) => {
     try {
       const response = await apiClient.put(`/projects/${projectId}/`, projectData);
@@ -39,6 +44,7 @@ export const projectService = {
       throw error;
     }
   },
+
   deleteProject: async (projectId) => {
     try {
       await apiClient.delete(`/projects/${projectId}/`);
