@@ -25,7 +25,15 @@ export const projectService = {
     const token = localStorage.getItem('accessToken');
     try {
       const response = await apiClient.post('/user/projects/', projectData, token);
-      return response;
+      return response.map((project) => ({
+        id: project.id,
+        name: project.name,
+        tasks: project.tasks.map((task) => ({
+          id: task.id,
+          title: task.title,
+          completed: task.completed,
+        })),
+      }));
     } catch (error) {
       console.error('Error creating project:', error);
       if (error.response) {
