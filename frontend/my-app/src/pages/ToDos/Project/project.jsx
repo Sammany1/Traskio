@@ -5,8 +5,10 @@ import '../../../styles/globals.css';
 import styles from './project.module.css';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
-  const { id, name, isEditing, tasks: initialTasks } = project;
+  const { id, name, isEditing: projectIsEditing, tasks: initialTasks } = project;
   const [tasks, setTasks] = useState(initialTasks || []);
+  const [isEditing, setIsEditing] = useState(projectIsEditing || false);
+  const [projectName, setProjectName] = useState(name || '');
   const inputRef = useRef();
 
   const handleAddTask = () => {
@@ -35,12 +37,21 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
 
   const completedTasks = tasks.filter((task) => task.completed).length;
 
-  const handleProjectNameChange = (e) => {
-    updateProject(id, { name: e.target.value });
+  const handleProjectNameClick = () => {
+    setIsEditing(true);
   };
 
-  const handleProjectNameBlur = () => {
-    updateProject(id, { isEditing: false });
+  const handleProjectNameChange = (e) => {
+    setProjectName(e.target.value);
+  };
+
+  const handleProjectNameBlur = async () => {
+    try {
+      await updateProject(id, { name: projectName, isEditing: false });
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating project:', error);
+    }
   };
 
   return (
@@ -59,7 +70,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
         ) : (
           <h2
             className="card-title"
-            onClick={() => updateProject(id, { isEditing: true})}
+            onClick={handleProjectNameClick}
           >
             {name || 'Untitled Project'}
           </h2>
