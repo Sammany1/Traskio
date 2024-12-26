@@ -16,6 +16,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, required=False, source='tasks_set')
+    owner = serializers.PrimaryKeyRelatedField(queryset=Users.objects.all(), required=False)
 
     class Meta:
         model = Projects

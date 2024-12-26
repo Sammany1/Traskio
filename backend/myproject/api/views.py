@@ -49,8 +49,18 @@ class ProjectViewSet(BaseModelViewSet):
         return queryset
 
     def update(self, request, *args, **kwargs):
-        request.data['updated_at'] = timezone.now()
-        return super().update(request, *args, **kwargs)
+        data = request.data.copy()
+        data['updated_at'] = timezone.now()
+        data.pop('owner', None)  # Remove the owner field if present
+        data.pop('id', None)
+        data.pop('isEditing', None)
+        data.pop('tasks', None)
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
 class TaskViewSet(BaseModelViewSet):
     queryset = Tasks.objects.all()
@@ -127,6 +137,10 @@ class UserProjectsView(APIView):
         data = request.data.copy()
         data['owner'] = request.user.id  # Set the owner to the authenticated user
         serializer = ProjectSerializer(data=data)
+        data.pop('id', None)
+        data.pop('isEditing', None)
+        data.pop('tasks', None)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
