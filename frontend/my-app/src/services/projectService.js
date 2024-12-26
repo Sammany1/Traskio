@@ -9,6 +9,7 @@ export const projectService = {
       return response.map((project) => ({
         id: project.id,
         name: project.name,
+        isEditing: false,
         tasks: project.tasks.map((task) => ({
           id: task.id,
           title: task.title,
@@ -24,16 +25,17 @@ export const projectService = {
   createProject: async (projectData) => {
     const token = localStorage.getItem('accessToken');
     try {
-      const response = await apiClient.post('/user/projects/', projectData, token);
-      return response.map((project) => ({
+      const project = await apiClient.post('/user/projects/', projectData, token);
+      return {
         id: project.id,
         name: project.name,
+        isEditing: false,
         tasks: project.tasks.map((task) => ({
           id: task.id,
           title: task.title,
           completed: task.completed,
         })),
-      }));
+      };
     } catch (error) {
       console.error('Error creating project:', error);
       if (error.response) {

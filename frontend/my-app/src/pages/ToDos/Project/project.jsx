@@ -59,7 +59,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
         ) : (
           <h2
             className="card-title"
-            onClick={() => updateProject(id, { isEditing: true })}
+            onClick={() => updateProject(id, { isEditing: true})}
           >
             {name || 'Untitled Project'}
           </h2>
