@@ -59,7 +59,7 @@ export const projectService = {
   deleteProject: async (projectId) => {
     const token = localStorage.getItem('accessToken');
     try {
-      await apiClient.delete(`/projects/${projectId}/`, token);
+      const response = await apiClient.delete(`/projects/${projectId}/`, token);
     } catch (error) {
       console.error('Error deleting project:', error);
       throw error;
