@@ -8,6 +8,8 @@ backend/myproject/*/migrations/*.pyc
 backend/myproject/media/
 backend/myproject/staticfiles/
 backend/myproject/settings_local.py
+backend/myproject/myproject/settings.py
+backend/myproject/myproject/__pycache__/settings.cpython-312.pyc
 
 # React.js
 frontend/my-app/node_modules/
@@ -38,6 +40,8 @@ coverage/
 *.coverage
 *.lcov
 coverage-final.json
+__pycache__/
+*.pyc
 
 # Python virtual environments
 venv/

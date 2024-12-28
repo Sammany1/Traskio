@@ -1,27 +1,58 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCard from './Project/project';
 import '../../styles/globals.css';
 import styles from './ToDosPage.module.css';
+import { projectService } from '../../services/projectService';
 
 const ToDoPage = () => {
   const [projects, setProjects] = useState([]);
 
-  const handleAddProject = () => {
-    const newProject = { id: Date.now(), title: '', isEditing: true };
-    setProjects([...projects, newProject]);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await projectService.getProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const handleAddProject = async () => {
+    const newProject = { id: null, name: 'Untitled Project', isEditing: true, tasks: [] };
+    try {
+      const createdProject = await projectService.createProject(newProject);
+      setProjects([...projects, createdProject]);
+    } catch (error) {
+      console.error('Error creating project:', error);
+    }
   };
 
-  const updateProject = (projectId, updatedData) => {
-    setProjects((prev) =>
-      prev.map((project) =>
-        project.id === projectId ? { ...project, ...updatedData } : project
-      )
-    );
+  const updateProject = async (projectId, updatedData) => {
+    try {
+      await projectService.updateProject(projectId, updatedData);
+      setProjects((prev) =>
+        prev.map((project) =>
+          project.id === projectId ? { ...project, ...updatedData } : project
+        )
+      );
+    } catch (error) {
+      console.error('Error updating project:', error);
+    }
   };
 
-  const deleteProject = (projectId) => {
-    setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+  const deleteProject = async (projectId) => {
+    try {
+      await projectService.deleteProject(projectId);
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => project.id !== projectId)
+      );
+    } catch (error) {
+      console.error('Error deleting project:', error);
+    }
   };
 
   return (

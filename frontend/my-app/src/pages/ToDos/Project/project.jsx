@@ -5,8 +5,10 @@ import '../../../styles/globals.css';
 import styles from './project.module.css';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
-  const { id, title, isEditing } = project;
-  const [tasks, setTasks] = useState([]);
+  const { id, name, isEditing: projectIsEditing, tasks: initialTasks } = project;
+  const [tasks, setTasks] = useState(initialTasks || []);
+  const [isEditing, setIsEditing] = useState(projectIsEditing || false);
+  const [projectName, setProjectName] = useState(name || '');
   const inputRef = useRef();
 
   const handleAddTask = () => {
@@ -14,7 +16,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
     if (!text.trim()) return;
     const newTask = {
       id: Date.now(),
-      text,
+      title: text,
       completed: false,
     };
     setTasks([...tasks, newTask]);
@@ -35,12 +37,21 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
 
   const completedTasks = tasks.filter((task) => task.completed).length;
 
-  const handleTitleChange = (e) => {
-    updateProject(id, { title: e.target.value });
+  const handleProjectNameClick = () => {
+    setIsEditing(true);
   };
 
-  const handleTitleBlur = () => {
-    updateProject(id, { isEditing: false });
+  const handleProjectNameChange = (e) => {
+    setProjectName(e.target.value);
+  };
+
+  const handleProjectNameBlur = async () => {
+    try {
+      await updateProject(id, { name: projectName, isEditing: false });
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating project:', error);
+    }
   };
 
   return (
@@ -49,19 +60,19 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
         {isEditing ? (
           <input
             type="text"
-            value={title}
-            onChange={handleTitleChange}
-            onBlur={handleTitleBlur}
-            placeholder="Enter ToDo Title"
+            value={projectName}
+            onChange={handleProjectNameChange}
+            onBlur={handleProjectNameBlur}
+            placeholder="Enter Project Name"
             className={styles.titleInput}
             autoFocus
           />
         ) : (
           <h2
             className="card-title"
-            onClick={() => updateProject(id, { isEditing: true })}
+            onClick={handleProjectNameClick}
           >
-            {title || 'Untitled Project'}
+            {name || 'Untitled Project'}
           </h2>
         )}
         {!isEditing && (
@@ -88,7 +99,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
                 task.completed ? styles.completed : ''
               }`}
             >
-              {task.text}
+              {task.title}
             </span>
             <span
               className={`${styles.checkbox} ${
