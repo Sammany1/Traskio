@@ -60,7 +60,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
         {isEditing ? (
           <input
             type="text"
-            value={name}
+            value={projectName}
             onChange={handleProjectNameChange}
             onBlur={handleProjectNameBlur}
             placeholder="Enter Project Name"
