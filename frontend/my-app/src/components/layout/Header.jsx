@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"; 
-import '../../styles/globals.css';
 import "../../styles/header.css";
 
 const Header = () => {
@@ -9,20 +8,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-  const [showSearchInput, setShowSearchInput] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  //const searchContainerRef = useRef(null);
   const location = useLocation();
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-  //       setShowSearchInput(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
 
   const renderLinks = () => {
     if (location.pathname === "/login" || location.pathname === "/signup") {
@@ -38,23 +24,6 @@ const Header = () => {
     if (location.pathname === "/todos") {
       return (
         <>
-          <div className="search-container">
-            <div
-              className="search-icon nav-link"
-              onClick={() => setShowSearchInput(!showSearchInput)}
-            >
-              <i className="fa fa-search"></i>
-            </div>
-            {showSearchInput && (
-              <input
-                className="input"
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            )}
-          </div>
           <div
             className="nav-link dropdown"
             onMouseEnter={() => setShowFilterDropdown(true)}
