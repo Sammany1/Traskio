@@ -94,7 +94,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
-            'sslrootcert': '/path/to/your/ca-certificate.crt',  # Optional for additional security
         },
     }
 }
