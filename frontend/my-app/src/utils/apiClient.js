@@ -66,11 +66,13 @@ export const apiClient = {
           'Authorization': `Bearer ${token}`,
         },
       });
-      const result = await response.json();
       if (!response.ok) {
+        // Only try to parse JSON if there's an error response with content
+        const result = await response.json();
         throw new Error(result.error || 'Request failed');
       }
-      return result;
+      // Don't try to parse the response for successful deletion (204)
+      return response;
     } catch (error) {
       return Promise.reject(error.message || 'An error occurred. Please try again.');
     }
