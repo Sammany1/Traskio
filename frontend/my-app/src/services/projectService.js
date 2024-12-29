@@ -10,6 +10,7 @@ export const projectService = {
         id: project.id,
         name: project.name,
         isEditing: false,
+        finished: project.finished,
         tasks: project.tasks.map((task) => ({
           id: task.id,
           title: task.title,
@@ -30,6 +31,7 @@ export const projectService = {
         id: project.id,
         name: project.name,
         isEditing: false,
+        finished: project.finished,
         tasks: project.tasks.map((task) => ({
           id: task.id,
           title: task.title,

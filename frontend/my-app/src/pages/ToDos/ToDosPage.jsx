@@ -22,7 +22,7 @@ const ToDoPage = () => {
   }, []);
 
   const handleAddProject = async () => {
-    const newProject = { id: null, name: 'Untitled Project', isEditing: true, tasks: [] };
+    const newProject = { id: null, name: 'Untitled Project', isEditing: true, finished: false, tasks: [] };
     try {
       const createdProject = await projectService.createProject(newProject);
       setProjects([...projects, createdProject]);
