@@ -1,8 +1,9 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ProgressBar from '../../../components/ui/ProgressBar';
 import '../../../styles/globals.css';
 import styles from './project.module.css';
+import { taskService } from '../../../services/taskService';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const { id, name, isEditing: projectIsEditing, tasks: initialTasks } = project;
@@ -11,28 +12,58 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const [projectName, setProjectName] = useState(name || '');
   const inputRef = useRef();
 
-  const handleAddTask = () => {
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const data = await taskService.getTasks();
+        setTasks(data.filter(task => task.project === id));
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+
+    fetchTasks();
+  }, [id]);
+
+  const handleAddTask = async () => {
     const text = inputRef.current.value;
     if (!text.trim()) return;
     const newTask = {
-      id: Date.now(),
       title: text,
       completed: false,
+      project: id,
     };
-    setTasks([...tasks, newTask]);
-    inputRef.current.value = '';
+    try {
+      const createdTask = await taskService.createTask(newTask);
+      setTasks([...tasks, createdTask]);
+      inputRef.current.value = '';
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
   };
 
-  const handleToggleTask = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
+  const handleToggleTask = async (taskId) => {
+    const task = tasks.find((task) => task.id === taskId);
+    const updatedTask = { ...task, completed: !task.completed };
+    try {
+      await taskService.updateTask(taskId, updatedTask);
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? updatedTask : task
+        )
+      );
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
 
-  const handleDeleteTask = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await taskService.deleteTask(taskId);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   const completedTasks = tasks.filter((task) => task.completed).length;
@@ -72,7 +103,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
             className="card-title"
             onClick={handleProjectNameClick}
           >
-            {name || 'Untitled Project'}
+            {projectName || 'Untitled Project'}
           </h2>
         )}
         {!isEditing && (
