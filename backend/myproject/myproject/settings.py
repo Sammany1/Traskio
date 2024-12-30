@@ -81,8 +81,6 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import os
-import sys
 
 # Use SQLite for tests, PostgreSQL for production/development
 DATABASES = {

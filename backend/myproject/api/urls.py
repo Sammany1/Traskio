@@ -8,8 +8,8 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'projects', views.ProjectViewSet)
-router.register(r'tasks', views.TaskViewSet)
+router.register(r'projects', views.ProjectViewSet, basename='project')
+router.register(r'tasks', views.TaskViewSet, basename='task')
 router.register(r'task-events', views.TaskEventViewSet)
 router.register(r'project-collaborators', views.ProjectCollaboratorViewSet)
 router.register(r'comments', views.CommentViewSet)
