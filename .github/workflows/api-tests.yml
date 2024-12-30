@@ -31,4 +31,4 @@ jobs:
         working-directory: backend/myproject
         env:
           DJANGO_SETTINGS_MODULE: myproject.settings
-        run: pytest --tag=api
+        run: pytest -m api
