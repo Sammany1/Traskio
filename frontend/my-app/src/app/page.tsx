@@ -6,7 +6,7 @@ import Footer from "../components/layout/Footer";
 import HomePage from "../pages/Home/HomePage";
 import LoginForm from "../pages/Login/LoginForm";
 import SignUpForm from "../pages/SignUp/SignUpForm";
-import ToDoPage from "../pages/ToDos/ToDosPage";
+import ToDoPage from "../pages/MainApp/ToDos/ToDosPage";
 import '../styles/globals.css';
 
 const App = () => {
