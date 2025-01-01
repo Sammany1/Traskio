@@ -7,6 +7,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginForm from "../pages/Login/LoginForm";
 import SignUpForm from "../pages/SignUp/SignUpForm";
 import ToDoPage from "../pages/MainApp/ToDos/ToDosPage";
+import ProfilePage from "../pages/Profile/profilepage";
 import '../styles/globals.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/todos" element={<ToDoPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </Router>

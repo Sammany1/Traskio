@@ -23,6 +23,7 @@ frontend/my-app/.env.test.local
 frontend/my-app/.env.production.local
 
 # General
+/node_modules
 *.log
 *.bak
 *.swp
