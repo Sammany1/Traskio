@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './Project/project';
-import '../../styles/globals.css';
+import '../../../styles/globals.css';
 import styles from './ToDosPage.module.css';
-import { projectService } from '../../services/projectService';
+import { projectService } from '../../../services/projectService';
 
 const ToDoPage = () => {
   const [projects, setProjects] = useState([]);

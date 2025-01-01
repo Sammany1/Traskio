@@ -118,3 +118,30 @@
 .nav-link:hover .down-arrow {
   border-top-color: var(--secondary-text);
 }
+
+/* Search Container */
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+.search-icon {
+  font-size: 16px;
+  color: var(--primary-text);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+  color: var(--secondary-text);
+}
+
+.search-container .input {
+  height: 15px;
+  margin-top: 15px;
+  position: absolute;
+  right: 60px;
+  width: 200px;
+}
