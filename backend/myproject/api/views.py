@@ -128,10 +128,18 @@ class UserProjectsView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        projects = Projects.objects.filter(owner=request.user).prefetch_related('tasks_set')
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                project = Projects.objects.get(pk=pk, owner=request.user)
+                serializer = ProjectSerializer(project)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Projects.DoesNotExist:
+                return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            projects = Projects.objects.filter(owner=request.user).prefetch_related('tasks_set')
+            serializer = ProjectSerializer(projects, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         data = request.data.copy()
