@@ -23,6 +23,27 @@ export const projectService = {
     }
   },
 
+  getProjectById: async (projectId) => {
+    const token = localStorage.getItem('accessToken');
+    try {
+      const response = await apiClient.get(`/user/projects/${projectId}/`, token);
+      return {
+        id: response.id,
+        name: response.name,
+        isEditing: false,
+        finished: response.finished,
+        tasks: response.tasks.map((task) => ({
+          id: task.id,
+          title: task.title,
+          completed: task.completed,
+        })),
+      };
+    } catch (error) {
+      console.error(`Error fetching project with id ${projectId}:`, error);
+      throw error;
+    }
+  },
+
   createProject: async (projectData) => {
     const token = localStorage.getItem('accessToken');
     try {

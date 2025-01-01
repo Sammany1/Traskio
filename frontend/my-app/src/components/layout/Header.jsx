@@ -64,13 +64,13 @@ const Header = () => {
                   className="dropdown-item"
                   onClick={() => setFilter("Finished")}
                 >
-                  Finished
+                  Done
                 </div>
                 <div
                   className="dropdown-item"
                   onClick={() => setFilter("Unfinished")}
                 >
-                  Unfinished
+                  In Progress
                 </div>
               </div>
             )}

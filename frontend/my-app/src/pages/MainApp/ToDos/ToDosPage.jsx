@@ -35,11 +35,25 @@ const ToDoPage = () => {
 
   const updateProject = async (projectId, updatedData) => {
     try {
+      console.log(`Updating project with ID: ${projectId}`);
       await projectService.updateProject(projectId, updatedData);
+      console.log(`Project with ID: ${projectId} updated successfully`);
+  
       setProjects((prev) =>
-        prev.map((project) =>
-          project.id === projectId ? { ...project, ...updatedData } : project
-        )
+        prev.map((project) => {
+          if (project.id === projectId) {
+            const updatedProject = { ...project, ...updatedData };
+            console.log(`Updating project data for project ID: ${projectId}`, updatedData);
+  
+            if (updatedData.tasks) {
+              updatedProject.tasks = updatedData.tasks;
+              console.log(`Tasks updated for project ID: ${projectId}`, updatedData.tasks);
+            }
+  
+            return updatedProject;
+          }
+          return project;
+        })
       );
     } catch (error) {
       console.error('Error updating project:', error);
@@ -56,6 +70,14 @@ const ToDoPage = () => {
       console.error('Error deleting project:', error);
     }
   };
+
+  // const updateProjectTasks = (projectId, tasks) => {
+  //   setProjects((prevProjects) =>
+  //     prevProjects.map((project) =>
+  //       project.id === projectId ? { ...project, tasks } : project
+  //     )
+  //   );
+  // };
 
   const filteredProjects = projects.filter(project => {
     if (filter === 'All') return true;

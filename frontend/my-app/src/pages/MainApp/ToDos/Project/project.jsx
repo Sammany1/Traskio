@@ -4,6 +4,7 @@ import ProgressBar from '../../../../components/ui/ProgressBar';
 import '../../../../styles/globals.css';
 import styles from './project.module.css';
 import { taskService } from '../../../../services/taskService';
+import { projectService } from '../../../../services/projectService';
 
 const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const { id, name, isEditing: projectIsEditing, tasks: initialTasks } = project;
@@ -11,6 +12,17 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const [isEditing, setIsEditing] = useState(projectIsEditing || false);
   const [projectName, setProjectName] = useState(name || '');
   const inputRef = useRef();
+
+  const reloadProject = async () => {
+    console.log('Reloading project...');
+    try {
+      const updatedProject = await projectService.getProjectById(id);
+      setTasks(updatedProject.tasks || []);
+      updateProject(id, updatedProject);
+    } catch (error) {
+      console.error('Error reloading project:', error);
+    }
+  };
 
   const handleAddTask = async () => {
     const text = inputRef.current.value;
@@ -22,8 +34,8 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
       project: id,
     };
     try {
-      const createdTask = await taskService.createTask(newTask);
-      setTasks((prevTasks) => [...prevTasks, createdTask]);
+      await taskService.createTask(newTask);
+      await reloadProject();
       inputRef.current.value = '';
     } catch (error) {
       console.error('Error creating task:', error);
@@ -32,14 +44,10 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
 
   const handleToggleTask = async (taskId) => {
     const task = tasks.find((task) => task.id === taskId);
-    const updatedTask = { ...task, completed: !task.completed };
+    const updatedTask = { ...task, completed: !task.completed, project: id  };
     try {
       await taskService.updateTask(taskId, updatedTask);
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === taskId ? updatedTask : task
-        )
-      );
+      await reloadProject();
     } catch (error) {
       console.error('Error updating task:', error);
     }
@@ -48,7 +56,7 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const handleDeleteTask = async (taskId) => {
     try {
       await taskService.deleteTask(taskId);
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      await reloadProject();
     } catch (error) {
       console.error('Error deleting task:', error);
     }
