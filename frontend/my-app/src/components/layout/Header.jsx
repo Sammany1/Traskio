@@ -1,28 +1,18 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom"; 
 import '../../styles/globals.css';
 import "../../styles/header.css";
+import { FilterContext } from '../../context/FilterContext';
 
 const Header = () => {
+  const { filter, setFilter } = useContext(FilterContext);
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState("All");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  //const searchContainerRef = useRef(null);
   const location = useLocation();
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-  //       setShowSearchInput(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
 
   const renderLinks = () => {
     if (location.pathname === "/login" || location.pathname === "/signup") {
@@ -60,36 +50,27 @@ const Header = () => {
             onMouseEnter={() => setShowFilterDropdown(true)}
             onMouseLeave={() => setShowFilterDropdown(false)}
           >
-            <span>{selectedFilter} </span>
+            <span>{filter} </span>
             <span className="down-arrow"></span>
             {showFilterDropdown && (
               <div className="dropdown-menu">
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("All");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("All")}
                 >
                   All
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("Done");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("Finished")}
                 >
-                  Done
+                  Finished
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("In Progress");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("Unfinished")}
                 >
-                  In Progress
+                  Unfinished
                 </div>
               </div>
             )}

@@ -1,12 +1,14 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ProjectCard from './Project/project';
 import '../../../styles/globals.css';
 import styles from './ToDosPage.module.css';
 import { projectService } from '../../../services/projectService';
+import { FilterContext } from '../../../context/FilterContext';
 
 const ToDoPage = () => {
   const [projects, setProjects] = useState([]);
+  const { filter } = useContext(FilterContext);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -55,10 +57,17 @@ const ToDoPage = () => {
     }
   };
 
+  const filteredProjects = projects.filter(project => {
+    if (filter === 'All') return true;
+    if (filter === 'Finished') return project.finished;
+    if (filter === 'Unfinished') return !project.finished;
+    return true;
+  });
+
   return (
     <div className="container">
       <div className={styles.projectContainer}>
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import ProgressBar from '../../../../components/ui/ProgressBar';
 import '../../../../styles/globals.css';
 import styles from './project.module.css';
@@ -12,30 +12,18 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
   const [projectName, setProjectName] = useState(name || '');
   const inputRef = useRef();
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const data = await taskService.getTasks();
-        setTasks(data.filter(task => task.project === id));
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
-    };
-
-    fetchTasks();
-  }, [id]);
-
   const handleAddTask = async () => {
     const text = inputRef.current.value;
     if (!text.trim()) return;
     const newTask = {
+      id: Date.now(),
       title: text,
       completed: false,
       project: id,
     };
     try {
       const createdTask = await taskService.createTask(newTask);
-      setTasks([...tasks, createdTask]);
+      setTasks((prevTasks) => [...prevTasks, createdTask]);
       inputRef.current.value = '';
     } catch (error) {
       console.error('Error creating task:', error);
@@ -121,7 +109,6 @@ const ProjectCard = ({ project, updateProject, deleteProject }) => {
           </button>
         )}
       </div>
-
       <ul className={styles.taskList}>
         {tasks.map((task) => (
           <li key={task.id} className={styles.taskItem}>
