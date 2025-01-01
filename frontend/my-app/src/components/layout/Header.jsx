@@ -15,7 +15,7 @@ const Header = () => {
       return (
         <>
           <Link to="/" className="nav-link">
-            Home
+            Home 
           </Link>
         </>
       );
