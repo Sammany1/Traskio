@@ -9,27 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cypress/react": "^8.0.2",
-    "@cypress/webpack-dev-server": "^3.11.0",
-    "babel-loader": "^9.2.1",
-    "css-loader": "^7.1.2",
     "next": "^15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.1",
-    "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.1"
+    "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "cypress": "^13.17.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "typescript": "^5",
-    "webpack": "^5.97.1"
+    "typescript": "^5"
   }
 }
