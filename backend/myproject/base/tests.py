@@ -61,21 +61,55 @@ def test_task_creation():
         email='testuser@example.com',
         password=make_password('testpassword')
     )
-    project = Projects.objects.create(name='Test Project', owner=user)
-    task = Tasks.objects.create(title='Test Task', project=project, status='To Do', priority='Medium')
+    project = Projects.objects.create(
+        name='Test Project',
+        description='Test Description',
+        owner=user
+    )
+    task = Tasks.objects.create(
+        title='Test Task',
+        description='Test Description',
+        project=project,
+        status='To Do',
+        priority='Medium'
+    )
     assert task.title == 'Test Task'
     assert task.project == project
+    assert task.status == 'To Do'
+    assert task.priority == 'Medium'
+    assert task.completed == False
 
 @pytest.mark.api
 @pytest.mark.django_db
 def test_project_list(api_client, create_user):
+    project = Projects.objects.create(
+        name='Test Project',
+        description='Test Description',
+        owner=create_user
+    )
     api_client.force_authenticate(user=create_user)
     response = api_client.get(reverse('project-list'))
     assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 1
+    assert response.data[0]['name'] == project.name
 
 @pytest.mark.api
 @pytest.mark.django_db
 def test_task_list(api_client, create_user):
+    project = Projects.objects.create(
+        name='Test Project',
+        description='Test Description',
+        owner=create_user
+    )
+    task = Tasks.objects.create(
+        title='Test Task',
+        description='Test Description',
+        project=project,
+        status='To Do',
+        priority='Medium'
+    )
     api_client.force_authenticate(user=create_user)
     response = api_client.get(reverse('task-list'))
     assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 1
+    assert response.data[0]['title'] == task.title
