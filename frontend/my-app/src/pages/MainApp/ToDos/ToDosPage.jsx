@@ -1,12 +1,14 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ProjectCard from './Project/project';
 import '../../../styles/globals.css';
 import styles from './ToDosPage.module.css';
 import { projectService } from '../../../services/projectService';
+import { FilterContext } from '../../../context/FilterContext';
 
-const ToDoPage = () => {
+const ToDoPage = ({ searchQuery }) => {
   const [projects, setProjects] = useState([]);
+  const { filter } = useContext(FilterContext);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -22,7 +24,7 @@ const ToDoPage = () => {
   }, []);
 
   const handleAddProject = async () => {
-    const newProject = { id: null, name: 'Untitled Project', isEditing: true, tasks: [] };
+    const newProject = { id: null, name: 'Untitled Project', isEditing: true, finished: false, tasks: [] };
     try {
       const createdProject = await projectService.createProject(newProject);
       setProjects([...projects, createdProject]);
@@ -33,11 +35,25 @@ const ToDoPage = () => {
 
   const updateProject = async (projectId, updatedData) => {
     try {
+      console.log(`Updating project with ID: ${projectId}`);
       await projectService.updateProject(projectId, updatedData);
+      console.log(`Project with ID: ${projectId} updated successfully`);
+  
       setProjects((prev) =>
-        prev.map((project) =>
-          project.id === projectId ? { ...project, ...updatedData } : project
-        )
+        prev.map((project) => {
+          if (project.id === projectId) {
+            const updatedProject = { ...project, ...updatedData };
+            console.log(`Updating project data for project ID: ${projectId}`, updatedData);
+  
+            if (updatedData.tasks) {
+              updatedProject.tasks = updatedData.tasks;
+              console.log(`Tasks updated for project ID: ${projectId}`, updatedData.tasks);
+            }
+  
+            return updatedProject;
+          }
+          return project;
+        })
       );
     } catch (error) {
       console.error('Error updating project:', error);
@@ -55,10 +71,17 @@ const ToDoPage = () => {
     }
   };
 
+  const filteredProjects = projects.filter(project => {
+    if (filter === 'All') return true;
+    if (filter === 'Done') return project.finished;
+    if (filter === 'In Progress') return !project.finished;
+    return true;
+  }).filter(project => project.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
   return (
     <div className="container">
       <div className={styles.projectContainer}>
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
