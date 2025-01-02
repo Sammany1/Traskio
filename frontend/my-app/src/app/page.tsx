@@ -13,11 +13,22 @@ import { FilterProvider } from '../context/FilterContext';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleLogout = () => {
+    setSearchQuery(''); // Reset search query
+    setShowSearch(false); // Hide search bar
+  };
 
   return (
     <FilterProvider>
       <Router>
-        <Header setSearchQuery={setSearchQuery} />
+        <Header 
+          setSearchQuery={setSearchQuery} 
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          onLogout={handleLogout}
+        />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />

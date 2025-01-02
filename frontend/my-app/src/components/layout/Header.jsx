@@ -5,18 +5,23 @@ import '../../styles/globals.css';
 import "../../styles/header.css";
 import { FilterContext } from '../../context/FilterContext';
 
-const Header = ({ setSearchQuery }) => {
+const Header = ({ setSearchQuery, showSearch, setShowSearch, onLogout }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-  const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchQuery, setSearchQueryLocal] = useState("");
   const location = useLocation();
 
   const handleSearchChange = (e) => {
     setSearchQueryLocal(e.target.value);
     setSearchQuery(e.target.value);
+  };
+
+  const handleLogout = () => {
+    setSearchQueryLocal(""); // Reset local search query
+    setShowSearch(false); // Hide search bar
+    onLogout(); // Call parent's logout handler
   };
 
   const renderLinks = () => {
@@ -36,11 +41,11 @@ const Header = ({ setSearchQuery }) => {
           <div className="search-container">
             <div
               className="search-icon nav-link"
-              onClick={() => setShowSearchInput(!showSearchInput)}
+              onClick={() => setShowSearch(!showSearch)}
             >
               <i className="fa fa-search"></i>
             </div>
-            {showSearchInput && (
+            {showSearch && (
               <input
                 className="input"
                 type="text"
@@ -90,7 +95,7 @@ const Header = ({ setSearchQuery }) => {
               <Link to="/profile" className="dropdown-item">
                 Profile
               </Link>
-              <Link to="/" className="dropdown-item">
+              <Link to="/" className="dropdown-item" onClick={handleLogout}>
                 Logout
               </Link>
             </div>
