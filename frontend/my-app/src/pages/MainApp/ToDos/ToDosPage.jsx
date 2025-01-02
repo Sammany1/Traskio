@@ -73,8 +73,8 @@ const ToDoPage = ({ searchQuery }) => {
 
   const filteredProjects = projects.filter(project => {
     if (filter === 'All') return true;
-    if (filter === 'Finished') return project.finished;
-    if (filter === 'Unfinished') return !project.finished;
+    if (filter === 'Done') return project.finished;
+    if (filter === 'In Progress') return !project.finished;
     return true;
   }).filter(project => project.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
