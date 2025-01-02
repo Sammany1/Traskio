@@ -65,37 +65,3 @@ def test_task_creation():
     task = Tasks.objects.create(title='Test Task', project=project)
     assert task.title == 'Test Task'
     assert task.project == project
-
-# Commenting out the non-working tests
-# @pytest.mark.api
-# @pytest.mark.django_db
-# def test_project_list(api_client, create_user):
-#     project = Projects.objects.create(
-#         name='Test Project',
-#         description='Test Description',
-#         owner=create_user
-#     )
-#     api_client.force_authenticate(user=create_user)
-#     response = api_client.get(reverse('project-list'))
-#     assert response.status_code == status.HTTP_200_OK
-#     assert len(response.data) == 1
-#     assert response.data[0]['name'] == project.name
-
-# @pytest.mark.api
-# @pytest.mark.django_db
-# def test_task_list(api_client, create_user):
-#     project = Projects.objects.create(
-#         name='Test Project',
-#         description='Test Description',
-#         owner=create_user
-#     )
-#     task = Tasks.objects.create(
-#         title='Test Task',
-#         description='Test Description',
-#         project=project
-#     )
-#     api_client.force_authenticate(user=create_user)
-#     response = api_client.get(reverse('task-list'))
-#     assert response.status_code == status.HTTP_200_OK
-#     assert len(response.data) == 1
-#     assert response.data[0]['title'] == task.title
