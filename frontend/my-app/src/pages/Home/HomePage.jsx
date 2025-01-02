@@ -33,16 +33,16 @@ const HomePage = () => {
           {/* Features Boxes */}
           <div className="features-container">
             <div className="card ho">
-              <h3 className="card-title">Organize Tasks</h3>
-              <p>Keep your tasks well-organized and easy to manage.</p>
+              <h3 className="card-title">Stay On Track</h3>
+              <p>Monitor your progress with a real-time progress bar and stay motivated</p>
             </div>
             <div className="card ho">
-              <h3 className="card-title">Keep up to date</h3>
-              <p>Track deadlines and never miss an important task.</p>
+              <h3 className="card-title">Manage Tasks Effortlessly</h3>
+              <p>Easily add, organize, and track tasks with a simple and intuitive interface</p>
             </div>
             <div className="card ho">
-              <h3 className="card-title">Get Reminders</h3>
-              <p>Receive notifications for upcoming deadlines.</p>
+              <h3 className="card-title">Stay Focused</h3>
+              <p>Filter and search tasks to focus on what matters most at any time</p>
             </div>
           </div>
 

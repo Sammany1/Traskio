@@ -43,6 +43,7 @@ coverage/
 coverage-final.json
 __pycache__/
 *.pyc
+.DS_Store
 
 # Python virtual environments
 venv/
