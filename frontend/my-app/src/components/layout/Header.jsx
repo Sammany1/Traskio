@@ -5,14 +5,19 @@ import '../../styles/globals.css';
 import "../../styles/header.css";
 import { FilterContext } from '../../context/FilterContext';
 
-const Header = () => {
+const Header = ({ setSearchQuery }) => {
   const { filter, setFilter } = useContext(FilterContext);
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQueryLocal] = useState("");
   const location = useLocation();
+
+  const handleSearchChange = (e) => {
+    setSearchQueryLocal(e.target.value);
+    setSearchQuery(e.target.value);
+  };
 
   const renderLinks = () => {
     if (location.pathname === "/login" || location.pathname === "/signup") {
@@ -41,7 +46,7 @@ const Header = () => {
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
               />
             )}
           </div>
@@ -62,13 +67,13 @@ const Header = () => {
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => setFilter("Finished")}
+                  onClick={() => setFilter("Done")}
                 >
                   Done
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => setFilter("Unfinished")}
+                  onClick={() => setFilter("In Progress")}
                 >
                   In Progress
                 </div>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer"; 
@@ -12,15 +12,17 @@ import '../styles/globals.css';
 import { FilterProvider } from '../context/FilterContext';
 
 const App = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <FilterProvider>
       <Router>
-        <Header />
+        <Header setSearchQuery={setSearchQuery} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/todos" element={<ToDoPage />} />
+          <Route path="/todos" element={<ToDoPage searchQuery={searchQuery} />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />

@@ -6,7 +6,7 @@ import styles from './ToDosPage.module.css';
 import { projectService } from '../../../services/projectService';
 import { FilterContext } from '../../../context/FilterContext';
 
-const ToDoPage = () => {
+const ToDoPage = ({ searchQuery }) => {
   const [projects, setProjects] = useState([]);
   const { filter } = useContext(FilterContext);
 
@@ -71,20 +71,12 @@ const ToDoPage = () => {
     }
   };
 
-  // const updateProjectTasks = (projectId, tasks) => {
-  //   setProjects((prevProjects) =>
-  //     prevProjects.map((project) =>
-  //       project.id === projectId ? { ...project, tasks } : project
-  //     )
-  //   );
-  // };
-
   const filteredProjects = projects.filter(project => {
     if (filter === 'All') return true;
     if (filter === 'Finished') return project.finished;
     if (filter === 'Unfinished') return !project.finished;
     return true;
-  });
+  }).filter(project => project.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="container">
