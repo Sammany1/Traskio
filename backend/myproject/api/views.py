@@ -4,6 +4,7 @@ from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils import timezone
 from django.contrib.auth.hashers import check_password, make_password
+from django.db.models import Q
 from base.models import Users, Projects, Tasks, TaskEvents, ProjectCollaborators, Comments, ActivityLogs
 from .serializers import (
     UserSerializer, ProjectSerializer, TaskSerializer, 
@@ -113,9 +114,18 @@ class LoginView(APIView):
         password = request.data.get('password')
         
         try:
-            user = Users.objects.get(username=identifier)
+            # Try to find user by username or email
+            user = Users.objects.filter(
+                Q(username=identifier) | 
+                Q(email=identifier)
+            ).first()
+            
+            if not user:
+                raise Users.DoesNotExist
+                
             if not check_password(password, user.password):
                 raise Users.DoesNotExist
+                
             tokens = get_tokens_for_user(user)
             return Response({
                 'message': 'Login successful',
@@ -123,13 +133,12 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
         except Users.DoesNotExist:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
 class UserProjectsView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk=None):
-        if pk:
+        if (pk):
             try:
                 project = Projects.objects.get(pk=pk, owner=request.user)
                 serializer = ProjectSerializer(project)
@@ -153,3 +162,39 @@ class UserProjectsView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetailView(APIView):
+    authentication_classes = [CustomJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+ 
+    def put(self, request):
+        user = request.user
+        data = request.data.copy()
+        data.pop('password', None)  # Prevent password update through this endpoint
+        serializer = UserSerializer(user, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdatePasswordView(APIView):
+    authentication_classes = [CustomJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        user = request.user
+        old_password = request.data.get('oldPassword')
+        new_password = request.data.get('newPassword')
+
+        if not check_password(old_password, user.password):
+            return Response({'error': 'Old password is incorrect'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.password = make_password(new_password)
+        user.save()
+        return Response({'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
