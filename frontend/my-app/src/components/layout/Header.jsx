@@ -1,35 +1,30 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom"; 
 import '../../styles/globals.css';
 import "../../styles/header.css";
+import { FilterContext } from '../../context/FilterContext';
 
-const Header = () => {
+const Header = ({ setSearchQuery }) => {
+  const { filter, setFilter } = useContext(FilterContext);
   const [showAuthLinks, setShowAuthLinks] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState("All");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  //const searchContainerRef = useRef(null);
+  const [searchQuery, setSearchQueryLocal] = useState("");
   const location = useLocation();
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-  //       setShowSearchInput(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
+  const handleSearchChange = (e) => {
+    setSearchQueryLocal(e.target.value);
+    setSearchQuery(e.target.value);
+  };
 
   const renderLinks = () => {
     if (location.pathname === "/login" || location.pathname === "/signup") {
       return (
         <>
           <Link to="/" className="nav-link">
-            Home
+            Home 
           </Link>
         </>
       );
@@ -51,7 +46,7 @@ const Header = () => {
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
               />
             )}
           </div>
@@ -60,34 +55,25 @@ const Header = () => {
             onMouseEnter={() => setShowFilterDropdown(true)}
             onMouseLeave={() => setShowFilterDropdown(false)}
           >
-            <span>{selectedFilter} </span>
+            <span>{filter} </span>
             <span className="down-arrow"></span>
             {showFilterDropdown && (
               <div className="dropdown-menu">
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("All");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("All")}
                 >
                   All
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("Done");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("Done")}
                 >
                   Done
                 </div>
                 <div
                   className="dropdown-item"
-                  onClick={() => {
-                    setSelectedFilter("In Progress");
-                    setShowFilterDropdown(false);
-                  }}
+                  onClick={() => setFilter("In Progress")}
                 >
                   In Progress
                 </div>
